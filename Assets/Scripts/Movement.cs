@@ -9,6 +9,8 @@ public class Movement : MonoBehaviour
 	private Animator animator;
 	private int lastState;
 
+	public Inventory inventory;
+
 	void Start()
 	{
 		animator = this.GetComponent<Animator>();
@@ -17,18 +19,10 @@ public class Movement : MonoBehaviour
 		target = transform.position;
 	}
 
-	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.gameObject.tag == "Tree") {
-			target = transform.position;
-			animator.SetInteger ("Direction", 4);
-			//lastState = 4;
-		}
-	}
-
 	void Update ()
 	{
 		if (Input.GetMouseButtonDown(0)) {
-			if (EventSystem.current.IsPointerOverGameObject () == false) {
+			if (EventSystem.current.IsPointerOverGameObject () == false && Inventory.HoverObject == null) {
 				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				target.z = transform.position.z;
 			}
@@ -77,5 +71,20 @@ public class Movement : MonoBehaviour
 
 		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
+	}
+
+	private void OnCollisionEnter2D(Collision2D coll) {
+		if (coll.gameObject.tag == "Tree") {
+			target = transform.position;
+			animator.SetInteger ("Direction", 4);
+			//lastState = 4;
+		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "Item") {
+			inventory.AddItem (other.GetComponent<Item> ());
+		}
 	}
 }
