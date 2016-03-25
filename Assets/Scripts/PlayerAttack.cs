@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour {
 			RaycastHit hit;
 			if(Physics.Raycast(ray, out hit)){
 				if (hit.transform.tag == "Enemy") {
-					enemy = hit.collider.gameObject;
+					enemy = hit.collider.transform.parent.gameObject;
 					enemyClicked = true;
 					print ("I'm an enemy");
 				}
@@ -47,11 +47,10 @@ public class PlayerAttack : MonoBehaviour {
 			if (distance <= this.GetComponent<Stats> ().AttackRange) {
 				attackSpeed = this.GetComponent<Stats> ().AttackSpeed;
 				if (enemy.GetComponent<Stats> ().HP > 0 && Time.time > nextAttack) {
-					print ("hello");
 					if (UnityEngine.Random.value <= this.GetComponent<Stats> ().Accuracy) {
-//						if (UnityEngine.Random.value <= this.GetComponent<Stats> ().critChance) {
-//							damage = Crit (damage);
-//						}
+						if (UnityEngine.Random.value <= this.GetComponent<Stats> ().critChance) {
+							damage = Crit (damage);
+						}
 						enemy.GetComponent<Stats> ().HP -= damage;
 						print (enemy.GetComponent<Stats> ().HP);
 						hitText.GetComponent<TextMesh> ().text = damage.ToString ();
@@ -64,12 +63,12 @@ public class PlayerAttack : MonoBehaviour {
 						color.a = 100;
 						hitText.GetComponent<TextMesh> ().color = color;
 					}
-					print("attack:" + nextAttack.ToString ());
-					print ("time:" + Time.time);
 					nextAttack = Time.time + 1 / attackSpeed;
-					print("attack:" + nextAttack.ToString ());
 				}
 			}
 		}
+	}
+	float Crit(float damage){
+		return damage * (1 + UnityEngine.Random.Range (this.GetComponent<Stats> ().critRangeLow, this.GetComponent<Stats> ().critRangeHigh));
 	}
 }
