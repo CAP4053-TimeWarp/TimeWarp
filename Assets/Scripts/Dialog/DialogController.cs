@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections;
 
-public class TestModalWindow : MonoBehaviour {
+public class DialogController : MonoBehaviour {
 
 	public Sprite icon;
 	public Transform spawnPoint;
@@ -28,30 +28,38 @@ public class TestModalWindow : MonoBehaviour {
 	// Send to the ModalPanel to set up the Buttons and Functions to call
 
 	public void TestOK() {
-		modalPanel.Choice("Here is an announcement. Press Cancel to proceed.", TestCancelFunction);
+		modalPanel.Choice("This is the default text for an OK dialog box.", TestOKFunction);
+	}
+
+	public void TestOK(string text) {
+		modalPanel.Choice(text, TestOKFunction);
 	}
 
 	public void TestYN() {
-		modalPanel.Choice("Do you like this dialog box? You can't escape the question!", TestYesFunction, TestNoFunction);
+		modalPanel.Choice("This is the default text for a Yes/No dialog box.", TestYesFunction, TestNoFunction);
 	}
 
 	public void TestYNC() {
-		modalPanel.Choice("Would you like a poke in the eye?\nHow about with a sharp stick?", TestYesFunction, TestNoFunction, TestCancelFunction);
+		modalPanel.Choice("This is the default text for a Yes/No/Cancel dialog box.", TestYesFunction, TestNoFunction, TestCancelFunction);
 	}
 
 	public void TestYNCI() {
-		modalPanel.Choice("Do you like this icon?", icon, TestYesFunction, TestNoFunction, TestCancelFunction);
+		modalPanel.Choice("This is the default text for a Yes/No/Cancel dialog box with an image.", icon, TestYesFunction, TestNoFunction, TestCancelFunction);
 	}
 
 	public void TestLambda() {
-		modalPanel.Choice("Do you want to create a sphere?", () => { InstantiateObject(thingToSpawn); }, TestNoFunction);
+		modalPanel.Choice("This is the default text for a Yes/No dialog box that spawns one object.", () => { InstantiateObject(thingToSpawn); }, TestNoFunction);
 	}
 
 	public void TestLambda2() {
-		modalPanel.Choice("Do you want to create two spheres?", () => { InstantiateObject(thingToSpawn, thingToSpawn); }, TestNoFunction);
+		modalPanel.Choice("This is the default text for a Yes/No dialog box that spawns two objects.", () => { InstantiateObject(thingToSpawn, thingToSpawn); }, TestNoFunction);
 	}
 
 	// These are wrapped into UnityActions
+	void TestOKFunction() {
+		displayManager.DisplayMessage("OK");
+	}
+
 	void TestYesFunction() {
 		displayManager.DisplayMessage("Yuuup");
 	}

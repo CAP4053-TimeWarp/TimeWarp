@@ -7,6 +7,7 @@ public class ModalPanel : MonoBehaviour {
 
 	public Text dialog;
 	public Image iconImage;
+	public Button okButton;
 	public Button yesButton;
 	public Button noButton;
 	public Button cancelButton;
@@ -26,19 +27,20 @@ public class ModalPanel : MonoBehaviour {
 	// For every set of possible button combinations, write a new Choice() override with the appropriate UnityAction arguments
 
 	// Announcement: a string and a Cancel event
-	public void Choice(string dialog, UnityAction cancelEvent) {
+	public void Choice(string dialog, UnityAction okEvent) {
 		modalPanelObject.SetActive(true);
 
-		cancelButton.onClick.RemoveAllListeners();
-		cancelButton.onClick.AddListener(cancelEvent);
-		cancelButton.onClick.AddListener(ClosePanel);
+		okButton.onClick.RemoveAllListeners();
+		okButton.onClick.AddListener(okEvent);
+		okButton.onClick.AddListener(ClosePanel);
 
 		this.dialog.text = dialog;
 
 		this.iconImage.gameObject.SetActive(false);
+		okButton.gameObject.SetActive(true);
 		yesButton.gameObject.SetActive(false);
 		noButton.gameObject.SetActive(false);
-		cancelButton.gameObject.SetActive(true);
+		cancelButton.gameObject.SetActive(false);
 	}
 
 	// Yes/No:	a string, a Yes event, and a No event
@@ -56,6 +58,7 @@ public class ModalPanel : MonoBehaviour {
 		this.dialog.text = dialog;
 
 		this.iconImage.gameObject.SetActive(false);
+		okButton.gameObject.SetActive(false);
 		yesButton.gameObject.SetActive(true);
 		noButton.gameObject.SetActive(true);
 		cancelButton.gameObject.SetActive(false);
@@ -80,6 +83,7 @@ public class ModalPanel : MonoBehaviour {
 		this.dialog.text = dialog;
 
 		this.iconImage.gameObject.SetActive(false);
+		okButton.gameObject.SetActive(false);
 		yesButton.gameObject.SetActive(true);
 		noButton.gameObject.SetActive(true);
 		cancelButton.gameObject.SetActive(true);
@@ -105,6 +109,7 @@ public class ModalPanel : MonoBehaviour {
 		this.iconImage.sprite = iconImage;
 
 		this.iconImage.gameObject.SetActive(true);
+		okButton.gameObject.SetActive(false);
 		yesButton.gameObject.SetActive(true);
 		noButton.gameObject.SetActive(true);
 		cancelButton.gameObject.SetActive(true);
