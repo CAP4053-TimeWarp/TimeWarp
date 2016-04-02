@@ -23,6 +23,44 @@ public class ModalPanel : MonoBehaviour {
 		return modalPanel;
 	}
 
+	// For every set of possible button combinations, write a new Choice() override with the appropriate UnityAction arguments
+
+	// Announcement: a string and a Cancel event
+	public void Choice(string dialog, UnityAction cancelEvent) {
+		modalPanelObject.SetActive(true);
+
+		cancelButton.onClick.RemoveAllListeners();
+		cancelButton.onClick.AddListener(cancelEvent);
+		cancelButton.onClick.AddListener(ClosePanel);
+
+		this.dialog.text = dialog;
+
+		this.iconImage.gameObject.SetActive(false);
+		yesButton.gameObject.SetActive(false);
+		noButton.gameObject.SetActive(false);
+		cancelButton.gameObject.SetActive(true);
+	}
+
+	// Yes/No:	a string, a Yes event, and a No event
+	public void Choice(string dialog, UnityAction yesEvent, UnityAction noEvent) {
+		modalPanelObject.SetActive(true);
+
+		yesButton.onClick.RemoveAllListeners();
+		yesButton.onClick.AddListener(yesEvent);
+		yesButton.onClick.AddListener(ClosePanel);
+
+		noButton.onClick.RemoveAllListeners();
+		noButton.onClick.AddListener(noEvent);
+		noButton.onClick.AddListener(ClosePanel);
+
+		this.dialog.text = dialog;
+
+		this.iconImage.gameObject.SetActive(false);
+		yesButton.gameObject.SetActive(true);
+		noButton.gameObject.SetActive(true);
+		cancelButton.gameObject.SetActive(false);
+	}
+
 	// Yes/No/Cancel:	a string, a Yes event, a No event, and a Cancel event
 	public void Choice(string dialog, UnityAction yesEvent, UnityAction noEvent, UnityAction cancelEvent) {
 		modalPanelObject.SetActive(true);
@@ -40,7 +78,33 @@ public class ModalPanel : MonoBehaviour {
 		cancelButton.onClick.AddListener(ClosePanel);
 
 		this.dialog.text = dialog;
+
 		this.iconImage.gameObject.SetActive(false);
+		yesButton.gameObject.SetActive(true);
+		noButton.gameObject.SetActive(true);
+		cancelButton.gameObject.SetActive(true);
+	}
+
+	// Yes/No/Cancel with Image:	a string, a Yes event, a No event, and a Cancel event
+	public void Choice(string dialog, Sprite iconImage, UnityAction yesEvent, UnityAction noEvent, UnityAction cancelEvent) {
+		modalPanelObject.SetActive(true);
+
+		yesButton.onClick.RemoveAllListeners();
+		yesButton.onClick.AddListener(yesEvent);
+		yesButton.onClick.AddListener(ClosePanel);
+
+		noButton.onClick.RemoveAllListeners();
+		noButton.onClick.AddListener(noEvent);
+		noButton.onClick.AddListener(ClosePanel);
+
+		cancelButton.onClick.RemoveAllListeners();
+		cancelButton.onClick.AddListener(cancelEvent);
+		cancelButton.onClick.AddListener(ClosePanel);
+
+		this.dialog.text = dialog;
+		this.iconImage.sprite = iconImage;
+
+		this.iconImage.gameObject.SetActive(true);
 		yesButton.gameObject.SetActive(true);
 		noButton.gameObject.SetActive(true);
 		cancelButton.gameObject.SetActive(true);
