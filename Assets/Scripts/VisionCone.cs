@@ -11,22 +11,29 @@ public class VisionCone : MonoBehaviour {
 	public float closeDistance;
 	private Boolean canSee;
 	private Boolean canAttack;
+	private Vector3 direction;
 	void Update() {
-		Vector2 targetDir = player.transform.position - transform.position;
-		Vector2 forward = transform.right;;
+		direction = this.GetComponent<AIMovement> ().getDirection ();
+		Vector3 targetDir = player.transform.position - transform.position;
+		Vector3 forward = transform.right;
 		float distance = Vector3.Distance(player.transform.position, transform.position);
 		float angle = Vector3.Angle(targetDir, forward);
 		if (angle <= closeVisionCone && distance <= closeDistance) {
 			canAttack = true;
 			canSee = true;
+			Debug.Log ("I can attack you");
 		} else if (angle <= farVisionCone && distance <= farDistance) {
 			canSee = true;
 			canAttack = false;
+			Debug.Log ("I can see you");
 		} 
 		else {
 			canSee = false;
 			canAttack = false;
 		}
+		Debug.Log (targetDir);
+		//Debug.Log (direction);
+		Debug.Log (angle); 
 	}
 	public Boolean getCanAttack(){
 		return canAttack;
