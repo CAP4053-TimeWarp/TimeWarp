@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Xml.Linq;
 using UnityEditor;
+using System.Security.Cryptography;
 
 public class AIMovement : MonoBehaviour {
 
@@ -13,8 +14,7 @@ public class AIMovement : MonoBehaviour {
 	private bool atTarget;
 	private Vector3 target;
 	private float nextPath;
-	private bool xAxis;
-	private bool yAxis;
+	private Vector3 direction;
 	void Start () {
 		vision = this.GetComponent<VisionCone> ();
 		attack = this.GetComponent<Attack> ();
@@ -36,28 +36,29 @@ public class AIMovement : MonoBehaviour {
 			target = pos + new Vector3 (0, 5, 0);
 			atTarget = false;
 			nextPath = Time.time + 2;
+			direction = transform.up;
 		}
 		else if(rand <= .50 && !this.gameObject.GetComponent<Rigidbody2D> ().IsAwake () && Time.time > nextPath) {
 			target = pos + new Vector3 (5, 0, 0);
 			atTarget = false;
 			nextPath = Time.time + 2;
+			direction = transform.right;
 		}
 		else if(rand <= .75 && !this.gameObject.GetComponent<Rigidbody2D> ().IsAwake () && Time.time > nextPath) {
 			target = pos + new Vector3 (0, -5, 0);
 			atTarget = false;
 			nextPath = Time.time + 2;
+			direction = -transform.up;
 		}
 		else if(rand <= 1.0 && !this.gameObject.GetComponent<Rigidbody2D> ().IsAwake () && Time.time > nextPath) {
 			target = pos + new Vector3 (-5, 0, 0);
 			atTarget = false;
 			nextPath = Time.time + 2;
+			direction = -transform.right;
 		}
 		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 	}
-	public bool xAxisMovement(){
-		return xAxis;
-	}
-	public bool yAxisMovement(){
-		return yAxis;
+	public Vector3 getDirection(){
+		return direction;
 	}
 }
