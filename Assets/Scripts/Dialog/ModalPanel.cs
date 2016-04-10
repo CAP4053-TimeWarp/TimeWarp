@@ -26,7 +26,22 @@ public class ModalPanel : MonoBehaviour {
 
 	// For every set of possible button combinations, write a new Choice() override with the appropriate UnityAction arguments
 
-	// Announcement: a string and a Cancel event
+	public void Choice(string dialog) {
+		modalPanelObject.SetActive(true);
+
+		okButton.onClick.RemoveAllListeners();
+		okButton.onClick.AddListener(ClosePanel);
+
+		this.dialog.text = dialog;
+
+		this.iconImage.gameObject.SetActive(false);
+		okButton.gameObject.SetActive(true);
+		yesButton.gameObject.SetActive(false);
+		noButton.gameObject.SetActive(false);
+		cancelButton.gameObject.SetActive(false);
+	}
+
+	// Announcement: a string and an OK event
 	public void Choice(string dialog, UnityAction okEvent) {
 		modalPanelObject.SetActive(true);
 
@@ -49,11 +64,11 @@ public class ModalPanel : MonoBehaviour {
 
 		yesButton.onClick.RemoveAllListeners();
 		yesButton.onClick.AddListener(yesEvent);
-		yesButton.onClick.AddListener(ClosePanel);
+		// yesButton.onClick.AddListener(ClosePanel);
 
 		noButton.onClick.RemoveAllListeners();
 		noButton.onClick.AddListener(noEvent);
-		noButton.onClick.AddListener(ClosePanel);
+		// noButton.onClick.AddListener(ClosePanel);
 
 		this.dialog.text = dialog;
 
