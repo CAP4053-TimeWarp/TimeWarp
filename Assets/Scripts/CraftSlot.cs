@@ -20,6 +20,10 @@ public class CraftSlot : MonoBehaviour, IPointerClickHandler {
 	private bool bottleVines;
 	private bool bottleWood;
 
+	//materials text for bottle
+	public Text tVines;
+	public Text tWood;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -51,6 +55,17 @@ public class CraftSlot : MonoBehaviour, IPointerClickHandler {
 			}
 		}
 		if(craftItems.ctype == CraftType.BOTTLE){
+			if (bottleWood == true) {
+				tWood.color = Color.green;
+			} else {
+				tWood.color = Color.white;
+			}
+			if(bottleVines == true){
+				tVines.color = Color.green;
+			} else {
+				tVines.color = Color.white;
+			}
+
 			if (bottleWood == true && bottleVines == true) {
 				GetComponent<Image> ().color = Color.white;
 			} else {

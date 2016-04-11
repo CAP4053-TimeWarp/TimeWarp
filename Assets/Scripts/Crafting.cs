@@ -35,15 +35,22 @@ public class Crafting : MonoBehaviour {
 		}
 	}
 
-	public void SeeMaterialsNeeded(CraftSlot Cclicked){
-		if (Cclicked.CraftItems.ctype != CraftType.EMPTY) {
+	public void SeeMaterialsNeeded(Canvas bottleMaterialsStatus){
+		if (bottleMaterialsStatus.GetComponent<CanvasGroup> ().alpha == 0) {
+			CanvasGroup materialsPanelGroup = bottleMaterialsStatus.GetComponent<CanvasGroup> ();
+			materialsPanelGroup.alpha = 1;
+		} else {
+			CanvasGroup materialsPanelGroup = bottleMaterialsStatus.GetComponent<CanvasGroup> ();
+			materialsPanelGroup.alpha = 0;
+		}
+		/*if (Cclicked.CraftItems.ctype != CraftType.EMPTY) {
 			if(Cclicked.CraftItems.ctype == CraftType.BOTTLE){
 				Debug.Log ("I need 5 vines and 1 wood.");
 			}
 		} else {
 			Debug.Log ("No crafting item selected.");
 		}
-		Cclicked = null;
+		Cclicked = null;*/
 	}
 		
 }
