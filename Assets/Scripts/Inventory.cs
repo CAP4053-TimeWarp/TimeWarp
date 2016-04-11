@@ -7,6 +7,12 @@ using UnityEngine.EventSystems;
 public class Inventory : MonoBehaviour {
 
 	//Variables
+	private static CanvasGroup bagPanelGroup;
+
+	public static CanvasGroup BagPanelGroup {
+		get { return Inventory.bagPanelGroup; }
+	}
+
 	private RectTransform inventoryRect;
 
 	private float inventoryWidth, inventoryHeight;
@@ -45,7 +51,11 @@ public class Inventory : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		CreateLayout ();
+		CreateLayout();
+		//bagPanelGroup = this.GetComponent<CanvasGroup> ();
+		bagPanelGroup = transform.parent.GetComponent<CanvasGroup>();
+		bagPanelGroup.alpha = 0;
+		//bagPanelGroup.interactable = false;
 	}
 	
 	// Update is called once per frame
@@ -186,6 +196,16 @@ public class Inventory : MonoBehaviour {
 			to = null;
 			from = null;
 			hoverObject = null;
+		}
+	}
+
+	public void toggleTheBag() {
+		if (bagPanelGroup.alpha == 0) {
+			bagPanelGroup.alpha = 1;
+			bagPanelGroup.interactable = true;
+		} else if (!GameObject.Find("Hover")) {
+			bagPanelGroup.alpha = 0;
+			bagPanelGroup.interactable = false;
 		}
 	}
 }
