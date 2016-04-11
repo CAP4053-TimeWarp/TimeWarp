@@ -75,7 +75,7 @@ public class CraftSlot : MonoBehaviour, IPointerClickHandler {
 	}
 
 	private void Craft(){
-		if (craftItems.ctype == CraftType.BOTTLE) {
+		if (craftItems.ctype == CraftType.BOTTLE && bottleVines == true && bottleWood == true) {
 			//take out used materials
 			int vineToTake = 5;
 			int woodToTake = 1;
