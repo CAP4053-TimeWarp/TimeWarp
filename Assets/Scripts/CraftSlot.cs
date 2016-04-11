@@ -101,7 +101,8 @@ public class CraftSlot : MonoBehaviour, IPointerClickHandler {
 			}
 
 			//appear in bag
-			Item newBottle = new Item();
+			//Item newBottle = new Item();
+			Item newBottle = gameObject.AddComponent<Item>();
 			newBottle.type = ItemType.BOTTLE;
 			SpriteState theState = GetComponent<Button> ().spriteState;
 			newBottle.spriteNeutral = theState.pressedSprite;
