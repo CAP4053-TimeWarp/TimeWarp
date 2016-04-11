@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class changeScene : MonoBehaviour {
@@ -10,6 +11,8 @@ public class changeScene : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonUp(0)) { Application.LoadLevel ("testScene"); }
+		if (Input.GetMouseButtonUp(0)) {
+			SceneManager.LoadScene("testScene");
+		}
 	}
 }

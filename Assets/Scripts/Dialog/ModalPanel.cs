@@ -24,6 +24,14 @@ public class ModalPanel : MonoBehaviour {
 		return modalPanel;
 	}
 
+	public bool isActive() {
+		return modalPanelObject.activeSelf;
+	}
+
+	void ClosePanel() {
+		modalPanelObject.SetActive(false);
+	}
+
 	// For every set of possible button combinations, write a new Choice() override with the appropriate UnityAction arguments
 
 	public void Choice(string dialog) {
@@ -128,10 +136,6 @@ public class ModalPanel : MonoBehaviour {
 		yesButton.gameObject.SetActive(true);
 		noButton.gameObject.SetActive(true);
 		cancelButton.gameObject.SetActive(true);
-	}
-
-	void ClosePanel() {
-		modalPanelObject.SetActive(false);
 	}
 
 }
