@@ -28,6 +28,10 @@ public class Inventory : MonoBehaviour {
 
 	private List<GameObject> allSlots;
 
+	public List<GameObject> AllSlots{
+		get { return allSlots; }
+	}
+
 	public GameObject iconPrefab;
 
 	private static GameObject hoverObject;
@@ -108,8 +112,8 @@ public class Inventory : MonoBehaviour {
 					newSlot.transform.SetParent (this.transform.parent);
 					slotRect.localPosition = inventoryRect.localPosition + new Vector3 (slotPaddingLeft * (x + 1) + (slotSize * x), -slotPaddingTop * (y + 1) - (slotSize * y));
 					slotRect.localScale = new Vector3 (1, 1, 1);
-				slotRect.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, slotSize);
-				slotRect.SetSizeWithCurrentAnchors (RectTransform.Axis.Vertical, slotSize);
+					slotRect.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, slotSize);
+					slotRect.SetSizeWithCurrentAnchors (RectTransform.Axis.Vertical, slotSize);
 					newSlot.transform.SetParent (this.transform);
 					allSlots.Add (newSlot);
 				}
